@@ -59,7 +59,7 @@ const AboutUs = () => {
     {
       icon: <Star />,
       title: 'Premium Experience',
-      description: 'Enjoy a world-class movie booking experience with FilmSathi'
+      description: 'Enjoy a world-class movie booking experience with Movie-Mitra'
     }
   ];
 
