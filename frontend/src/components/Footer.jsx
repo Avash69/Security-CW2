@@ -102,7 +102,7 @@ const Footer = () => {
             color='#94A3B8'
             align='center'
             sx={{ mt: 2 }}>
-            © {new Date().getFullYear()} FilmSathi. Professional Cinema Booking.
+            © {new Date().getFullYear()} Movie-Mitra. Professional Cinema Booking.
           </Typography>
         </Stack>
       </Container>
