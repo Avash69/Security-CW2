@@ -134,7 +134,7 @@ const Navbar = () => {
               flexGrow: { xs: 1, md: 0 },
               letterSpacing: '-0.02em',
             }}>
-            FilmSathi
+            Movie-Mitra
           </Typography>
 
           {isMobile ? (
