@@ -347,7 +347,7 @@ const ContactUs = () => {
                         Address
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        Chabahil, Kathmandu-29
+                        Chabahil, Kathmandu-7
                       </Typography>
                     </Box>
                   </Box>
