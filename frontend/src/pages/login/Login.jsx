@@ -1,12 +1,10 @@
 
-
 import {
   Email as EmailIcon,
   LocalMovies as LocalMoviesIcon,
   Lock as LockIcon,
   Visibility as VisibilityIcon,
   VisibilityOff as VisibilityOffIcon,
-  WavingHand as WavingHandIcon,
 } from '@mui/icons-material';
 import {
   alpha,
@@ -20,18 +18,20 @@ import {
   DialogContent,
   DialogTitle,
   Fade,
+  Grid,
   IconButton,
   InputAdornment,
   TextField,
   Typography,
   useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
 import { toast } from 'react-toastify';
 import zxcvbn from 'zxcvbn';
-
 import { Link } from 'react-router-dom';
+
 import {
   forgotPasswordApi,
   loginUserApi,
@@ -40,6 +40,7 @@ import {
   verifyRegisterOtpApi,
 } from '../../apis/Api';
 import VerificationModal from '../../components/VerificationModel';
+import loginHero from '../../assets/login_hero.png';
 
 const PasswordStrengthIndicator = ({ password }) => {
   const theme = useTheme();
@@ -47,35 +48,23 @@ const PasswordStrengthIndicator = ({ password }) => {
 
   const strengthColor = useMemo(() => {
     switch (result.score) {
-      case 0:
-        return '#ff4436';
-      case 1:
-        return '#ffa000';
-      case 2:
-        return '#ffd600';
-      case 3:
-        return '#52c41a';
-      case 4:
-        return '#00c853';
-      default:
-        return '#e0e0e0';
+      case 0: return '#ff4436';
+      case 1: return '#ffa000';
+      case 2: return '#ffd600';
+      case 3: return '#52c41a';
+      case 4: return '#00c853';
+      default: return '#e0e0e0';
     }
   }, [result.score]);
 
   const strengthText = useMemo(() => {
     switch (result.score) {
-      case 0:
-        return 'Very Weak';
-      case 1:
-        return 'Weak';
-      case 2:
-        return 'Fair';
-      case 3:
-        return 'Good';
-      case 4:
-        return 'Strong';
-      default:
-        return '';
+      case 0: return 'Very Weak';
+      case 1: return 'Weak';
+      case 2: return 'Fair';
+      case 3: return 'Good';
+      case 4: return 'Strong';
+      default: return '';
     }
   }, [result.score]);
 
@@ -99,21 +88,12 @@ const PasswordStrengthIndicator = ({ password }) => {
           />
         </Box>
       </Box>
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}>
-        <Typography
-          variant='caption'
-          sx={{ color: strengthColor }}>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <Typography variant='caption' sx={{ color: strengthColor, fontWeight: 700 }}>
           {strengthText}
         </Typography>
         {result.feedback.warning && (
-          <Typography
-            variant='caption'
-            color='text.secondary'>
+          <Typography variant='caption' color='text.secondary'>
             {result.feedback.warning}
           </Typography>
         )}
@@ -124,6 +104,8 @@ const PasswordStrengthIndicator = ({ password }) => {
 
 const Login = () => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [resetEmail, setResetEmail] = useState('');
@@ -137,12 +119,10 @@ const Login = () => {
   const [showForgotPasswordModal, setShowForgotPasswordModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [openVerificationModal, setOpenVerificationModal] = useState(false);
-  const [openRegisterVerificationModal, setOpenRegisterVerificationModal] =
-    useState(false);
+  const [openRegisterVerificationModal, setOpenRegisterVerificationModal] = useState(false);
   const [captchaToken, setCaptchaToken] = useState(null);
 
   const handleVerification = (otpString) => {
-    // console.log(otpString);
     verifyLoginOtpApi({ email, otp: otpString })
       .then((res) => {
         toast.success(res.data.message);
@@ -155,7 +135,6 @@ const Login = () => {
   };
 
   const handleRegisterVerification = (otpString) => {
-    // console.log(otpString);
     verifyRegisterOtpApi({ email, otp: otpString })
       .then((res) => {
         toast.success(res.data.message);
@@ -196,21 +175,14 @@ const Login = () => {
       toast.warning('Passwords do not match');
       return;
     }
-
-    // Check password strength before allowing reset
     const strength = zxcvbn(resetPassword);
     if (strength.score < 2) {
       toast.warning('Please choose a stronger password');
       return;
     }
-
     setIsLoading(true);
     try {
-      await resetPasswordApi({
-        email: resetEmail,
-        otp,
-        password: resetPassword,
-      });
+      await resetPasswordApi({ email: resetEmail, otp, password: resetPassword });
       toast.success('Password reset successfully');
       setResetEmail('');
       setOtp('');
@@ -231,7 +203,6 @@ const Login = () => {
       toast.warning('Please enter your email');
       return;
     }
-
     setIsLoading(true);
     try {
       const res = await forgotPasswordApi({ email: resetEmail });
@@ -247,16 +218,12 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
-
-    // Check if CAPTCHA is completed
     if (!captchaToken) {
       toast.error('Please complete the CAPTCHA verification');
       return;
     }
-
     setIsLoading(true);
     try {
-      console.log('Sending login request with CAPTCHA token:', captchaToken);
       loginUserApi({ email, password, captchaToken })
         .then((res) => {
           if (res.data.registerOtpRequired) {
@@ -270,493 +237,293 @@ const Login = () => {
           }
         })
         .catch((err) => {
-          console.log('Login error:', err.response);
-          if (err.response?.data?.message?.includes('captcha') || err.response?.data?.message?.includes('CAPTCHA')) {
+          if (err.response?.data?.message?.includes('captcha')) {
             toast.error('CAPTCHA verification failed. Please try again.');
-            // Reset CAPTCHA
             setCaptchaToken(null);
-            // Force CAPTCHA to reset
             window.grecaptcha?.reset();
           } else {
             toast.error(err.response?.data?.message || 'Login failed');
           }
         });
     } catch (err) {
-      console.log('Unexpected error:', err);
       toast.error('An unexpected error occurred');
     } finally {
       setIsLoading(false);
     }
   };
 
-  const textFieldProps = {
-    fullWidth: true,
-    variant: 'outlined',
-    sx: {
-      '& .MuiOutlinedInput-root': {
-        '&:hover fieldset': {
-          borderColor: theme.palette.primary.main,
-        },
-        '&.Mui-focused fieldset': {
-          borderWidth: '2px',
-        },
-      },
-      '& .MuiInputLabel-root': {
-        '&.Mui-focused': {
-          color: theme.palette.primary.main,
-        },
-      },
-    },
-  };
-
   return (
-    <Box sx={{
-      minHeight: '100vh',
-      bgcolor: '#F0F4F8',
-      display: 'flex',
-      alignItems: 'center',
-      pt: 8
-    }}>
-      <Container
-        component='main'
-        maxWidth='xs'
-        sx={{
-          mt: 4,
-        }}>
-        <Fade
-          in
-          timeout={800}>
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'center',
-            }}>
-            <Card
-              elevation={0}
+    <Box sx={{ minHeight: '100vh', display: 'flex', bgcolor: '#FFFFFF' }}>
+      <Grid container sx={{ flex: 1 }}>
+        {/* Left Side: Hero Illustration (hidden on mobile) */}
+        {!isMobile && (
+          <Grid item md={6} lg={7} sx={{ position: 'relative', overflow: 'hidden' }}>
+            <Box
               sx={{
                 width: '100%',
-                bgcolor: '#FFFFFF',
-                borderRadius: 4,
-                boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
-                border: '1px solid #E2E8F0',
-              }}>
-              <CardContent sx={{ p: 4 }}>
-                <Box
-                  sx={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: 1,
-                    mb: 4,
-                  }}>
-                  <LocalMoviesIcon
-                    sx={{
-                      fontSize: 40,
-                      color: theme.palette.primary.main,
-                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.2))',
-                    }}
-                  />
-                  <WavingHandIcon
-                    sx={{
-                      fontSize: 28,
-                      color: theme.palette.primary.main,
-                      animation: 'wave 1.5s infinite',
-                      '@keyframes wave': {
-                        '0%': { transform: 'rotate(-10deg)' },
-                        '50%': { transform: 'rotate(20deg)' },
-                        '100%': { transform: 'rotate(-10deg)' },
-                      },
-                    }}
-                  />
-                </Box>
-
-                <Typography
-                  component='h1'
-                  variant='h4'
-                  align='center'
-                  gutterBottom
-                  sx={{
-                    fontWeight: 700,
-                    background: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                    backgroundClip: 'text',
-                    WebkitBackgroundClip: 'text',
-                    color: 'transparent',
-                    mb: 1,
-                  }}>
-                  Welcome Back!
-                </Typography>
-
-                <Typography
-                  variant='body1'
-                  color='text.secondary'
-                  align='center'
-                  sx={{ mb: 4 }}>
-                  Your ticket to cinematic adventures awaits
-                </Typography>
-
-                <Box
-                  component='form'
-                  onSubmit={handleSubmit}
-                  noValidate>
-                  <TextField
-                    {...textFieldProps}
-                    margin='normal'
-                    required
-                    id='email'
-                    label='Email Address'
-                    name='email'
-                    autoComplete='email'
-                    autoFocus
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    error={!!emailError}
-                    helperText={emailError}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <EmailIcon color={emailError ? 'error' : 'primary'} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <TextField
-                    {...textFieldProps}
-                    margin='normal'
-                    required
-                    name='password'
-                    label='Password'
-                    type={showPassword ? 'text' : 'password'}
-                    id='password'
-                    autoComplete='current-password'
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    error={!!passwordError}
-                    helperText={passwordError}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <LockIcon color={passwordError ? 'error' : 'primary'} />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position='end'>
-                          <IconButton
-                            aria-label='toggle password visibility'
-                            onClick={() => setShowPassword(!showPassword)}
-                            edge='end'
-                            size='large'>
-                            {showPassword ? (
-                              <VisibilityOffIcon />
-                            ) : (
-                              <VisibilityIcon />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {/* Apply recaptcha */}
-                  <Box sx={{ mt: 2, mb: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                    <ReCAPTCHA
-                      sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-                      onChange={(token) => {
-                        console.log('CAPTCHA Token received:', token ? 'Valid token' : 'No token');
-                        setCaptchaToken(token);
-                      }}
-                      onExpired={() => {
-                        console.log('CAPTCHA Expired');
-                        setCaptchaToken(null);
-                        toast.warning('CAPTCHA expired. Please complete it again.');
-                      }}
-                      onError={() => {
-                        console.log('CAPTCHA Error occurred');
-                        setCaptchaToken(null);
-                        toast.error('CAPTCHA error. Please refresh and try again.');
-                      }}
-                    />
-                    {!captchaToken && (
-                      <Typography
-                        variant="caption"
-                        color="text.secondary"
-                        sx={{ mt: 1, textAlign: 'center' }}
-                      >
-                        Please complete the CAPTCHA verification above
-                      </Typography>
-                    )}
-                    {captchaToken && (
-                      <Typography
-                        variant="caption"
-                        color="success.main"
-                        sx={{ mt: 1, textAlign: 'center', display: 'flex', alignItems: 'center', gap: 0.5 }}
-                      >
-                        ✓ CAPTCHA verified successfully
-                      </Typography>
-                    )}
-                  </Box>
-
-                  <Box
-                    sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-                    <Button
-                      onClick={() => setShowForgotPasswordModal(true)}
-                      sx={{
-                        textTransform: 'none',
-                        '&:hover': {
-                          background: 'transparent',
-                          color: theme.palette.primary.main,
-                        },
-                      }}>
-                      Forgot Password?
-                    </Button>
-                  </Box>
-
-                  <Button
-                    type='submit'
-                    fullWidth
-                    variant='contained'
-                    disabled={isLoading || !captchaToken}
-                    sx={{
-                      mt: 3,
-                      mb: 2,
-                      py: 1.5,
-                      fontSize: '1.1rem',
-                      fontWeight: 600,
-                      textTransform: 'none',
-                      borderRadius: 2,
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                      '&:hover': {
-                        boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-                        transform: 'translateY(-1px)',
-                      },
-                      '&:disabled': {
-                        backgroundColor: theme.palette.grey[300],
-                        color: theme.palette.grey[500],
-                      },
-                      transition: 'all 0.2s ease-in-out',
-                    }}>
-                    {isLoading ? 'Logging in...' : !captchaToken ? 'Complete CAPTCHA to Login' : 'Login'}
-                  </Button>
-
-                  <Box
-                    sx={{
-                      textAlign: 'center',
-                      p: 2,
-                      borderRadius: 2,
-                      bgcolor: theme.palette.background.default,
-                    }}>
-                    <Typography
-                      variant='body2'
-                      color='text.secondary'
-                      display='inline'>
-                      Don't have an account?{' '}
-                    </Typography>
-                    <Link
-                      to='/register'
-                      style={{ color: theme.palette.primary.main }}>
-                      Create an account
-                    </Link>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Box>
-        </Fade>
-
-        <VerificationModal
-          open={openRegisterVerificationModal}
-          onClose={() => setOpenRegisterVerificationModal(false)}
-          isRegistration={true}
-          onVerify={handleRegisterVerification}
-          email={email}
-        />
-
-        <VerificationModal
-          open={openVerificationModal}
-          onClose={() => setOpenVerificationModal(false)}
-          isRegistration={false}
-          onVerify={handleVerification}
-          email={email}
-        />
-
-        <Dialog
-          open={showForgotPasswordModal}
-          onClose={() => {
-            if (!isLoading) {
-              setShowForgotPasswordModal(false);
-              setIsSentOtp(false);
-              setResetEmail('');
-              setOtp('');
-              setResetPassword('');
-              setConfirmPassword('');
-            }
-          }}
-          PaperProps={{
-            sx: {
-              borderRadius: 3,
-              width: '100%',
-              maxWidth: 400,
-            },
-          }}>
-          <DialogTitle
-            sx={{
-              pb: 1,
-              textAlign: 'center',
-              fontWeight: 600,
-            }}>
-            Reset Password
-          </DialogTitle>
-          <DialogContent>
-            <Box
-              component='form'
-              noValidate
-              sx={{ mt: 1 }}>
-              <TextField
-                {...textFieldProps}
-                margin='normal'
-                required
-                fullWidth
-                id='phone'
-                label='Reset Email'
-                name='resetEmail'
-                autoComplete='tel'
-                value={resetEmail}
-                onChange={(e) => setResetEmail(e.target.value)}
-                disabled={isSentOtp}
-                InputProps={{
-                  startAdornment: (
-                    <InputAdornment position='start'>
-                      <EmailIcon color={isSentOtp ? 'disabled' : 'primary'} />
-                    </InputAdornment>
-                  ),
-                }}
-              />
-
-              {!isSentOtp ? (
-                <Button
-                  fullWidth
-                  variant='contained'
-                  onClick={sentOtp}
-                  disabled={isLoading}
-                  sx={{
-                    mt: 3,
-                    py: 1.2,
-                    textTransform: 'none',
-                    borderRadius: 2,
-                    fontWeight: 600,
-                  }}>
-                  {isLoading ? 'Sending OTP...' : 'Get OTP'}
-                </Button>
-              ) : (
-                <>
-                  <TextField
-                    {...textFieldProps}
-                    margin='normal'
-                    required
-                    fullWidth
-                    id='otp'
-                    label='OTP'
-                    name='otp'
-                    type='number'
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value)}
-                    sx={{
-                      '& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button':
-                      {
-                        '-webkit-appearance': 'none',
-                        margin: 0,
-                      },
-                      '& input[type=number]': {
-                        '-moz-appearance': 'textfield',
-                      },
-                    }}
-                  />
-
-                  <TextField
-                    {...textFieldProps}
-                    margin='normal'
-                    required
-                    fullWidth
-                    name='newPassword'
-                    label='New Password'
-                    type='password'
-                    id='newPassword'
-                    value={resetPassword}
-                    onChange={(e) => setResetPassword(e.target.value)}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <LockIcon color='primary' />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {resetPassword && (
-                    <Box sx={{ mt: 1 }}>
-                      <PasswordStrengthIndicator password={resetPassword} />
-                    </Box>
-                  )}
-
-                  <TextField
-                    {...textFieldProps}
-                    margin='normal'
-                    required
-                    fullWidth
-                    name='confirmPassword'
-                    label='Confirm Password'
-                    type='password'
-                    id='confirmPassword'
-                    value={confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <LockIcon color='primary' />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </>
-              )}
-            </Box>
-          </DialogContent>
-          <DialogActions sx={{ px: 3, pb: 3 }}>
-            <Button
-              onClick={() => {
-                if (!isLoading) {
-                  setShowForgotPasswordModal(false);
-                  setIsSentOtp(false);
-                  setResetEmail('');
-                  setOtp('');
-                  setResetPassword('');
-                  setConfirmPassword('');
+                height: '100%',
+                backgroundImage: `url(${loginHero})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(135deg, rgba(25, 118, 210, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%)',
                 }
               }}
-              sx={{
-                textTransform: 'none',
-                fontWeight: 500,
-                minWidth: 100,
+            />
+            {/* Logo/Branding on Image */}
+            <Box sx={{ position: 'absolute', top: 40, left: 40, zIndex: 10 }}>
+              <Typography variant="h4" sx={{
+                fontWeight: 900,
+                color: 'white',
+                letterSpacing: '-0.03em',
+                textShadow: '0 4px 12px rgba(0,0,0,0.3)',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1
               }}>
-              Cancel
-            </Button>
-            {isSentOtp && (
-              <Button
-                onClick={handleReset}
-                variant='contained'
-                disabled={isLoading}
-                sx={{
-                  textTransform: 'none',
-                  fontWeight: 600,
-                  minWidth: 100,
-                }}>
-                {isLoading ? 'Resetting...' : 'Reset Password'}
+                <LocalMoviesIcon sx={{ fontSize: 40 }} />
+                Movie-Mitra
+              </Typography>
+            </Box>
+            <Box sx={{ position: 'absolute', bottom: 60, left: 60, right: 60, zIndex: 10 }}>
+              <Typography variant="h2" sx={{ fontWeight: 800, color: 'white', mb: 2, letterSpacing: '-0.04em', lineHeight: 1 }}>
+                Cinematic Experiences,<br />Simplified.
+              </Typography>
+              <Typography variant="h6" sx={{ color: 'white', opacity: 0.9, fontWeight: 400, maxWidth: 500 }}>
+                Book tickets, discover new releases, and manage your cinema journey with Nepal's premier platform.
+              </Typography>
+            </Box>
+          </Grid>
+        )}
+
+        {/* Right Side: Login Form */}
+        <Grid item xs={12} md={6} lg={5} sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%)',
+          position: 'relative',
+        }}>
+          {isMobile && (
+            <Box sx={{ position: 'absolute', top: 20, left: 20 }}>
+              <Typography variant="h6" sx={{ fontWeight: 800, color: '#1976D2', letterSpacing: '-0.02em' }}>
+                Movie-Mitra
+              </Typography>
+            </Box>
+          )}
+
+          <Fade in timeout={1000}>
+            <Container maxWidth="xs" sx={{ px: { xs: 3, sm: 4 } }}>
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, color: '#0F172A', mb: 1, letterSpacing: '-0.02em' }}>
+                  Welcome Back
+                </Typography>
+                <Typography variant="body1" sx={{ color: '#64748B', fontWeight: 500 }}>
+                  Enter your credentials to access your terminal.
+                </Typography>
+              </Box>
+
+              <Card elevation={0} sx={{
+                bgcolor: 'transparent',
+              }}>
+                <CardContent sx={{ p: 0 }}>
+                  <Box component='form' onSubmit={handleSubmit} noValidate>
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      margin='normal'
+                      required
+                      label='Email Address'
+                      autoComplete='email'
+                      autoFocus
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      error={!!emailError}
+                      helperText={emailError}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 3,
+                          bgcolor: 'white',
+                        }
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <EmailIcon color={emailError ? 'error' : 'primary'} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      margin='normal'
+                      required
+                      label='Password'
+                      type={showPassword ? 'text' : 'password'}
+                      autoComplete='current-password'
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      error={!!passwordError}
+                      helperText={passwordError}
+                      sx={{
+                        '& .MuiOutlinedInput-root': {
+                          borderRadius: 3,
+                          bgcolor: 'white',
+                        }
+                      }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <LockIcon color={passwordError ? 'error' : 'primary'} />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              onClick={() => setShowPassword(!showPassword)}
+                              edge='end'
+                              size='large'>
+                              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                      <ReCAPTCHA
+                        sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                        onChange={(token) => setCaptchaToken(token)}
+                        onExpired={() => setCaptchaToken(null)}
+                      />
+                    </Box>
+
+                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+                      <Button
+                        onClick={() => setShowForgotPasswordModal(true)}
+                        sx={{ textTransform: 'none', fontWeight: 600, color: '#1976D2' }}>
+                        Forgot Password?
+                      </Button>
+                    </Box>
+
+                    <Button
+                      type='submit'
+                      fullWidth
+                      variant='contained'
+                      disabled={isLoading || !captchaToken}
+                      sx={{
+                        mt: 3,
+                        mb: 3,
+                        py: 1.8,
+                        fontSize: '1rem',
+                        fontWeight: 700,
+                        textTransform: 'none',
+                        borderRadius: 3,
+                        bgcolor: '#1976D2',
+                        boxShadow: '0 10px 20px rgba(25, 118, 210, 0.2)',
+                        '&:hover': {
+                          bgcolor: '#1565C0',
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 12px 24px rgba(25, 118, 210, 0.3)',
+                        },
+                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                      }}>
+                      {isLoading ? 'Processing...' : 'Login to Account'}
+                    </Button>
+
+                    <Box sx={{
+                      textAlign: 'center',
+                      p: 2,
+                      borderRadius: 3,
+                      bgcolor: '#F1F5F9',
+                      border: '1px solid #E2E8F0'
+                    }}>
+                      <Typography variant='body2' sx={{ color: '#475569', fontWeight: 600 }}>
+                        Don't have an account?{' '}
+                        <Link to='/register' style={{ color: '#1976D2', textDecoration: 'none', fontWeight: 800 }}>
+                          Sign Up Free
+                        </Link>
+                      </Typography>
+                    </Box>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Container>
+          </Fade>
+        </Grid>
+      </Grid>
+
+      {/* Auth Modals */}
+      <VerificationModal
+        open={openRegisterVerificationModal}
+        onClose={() => setOpenRegisterVerificationModal(false)}
+        isRegistration={true}
+        onVerify={handleRegisterVerification}
+        email={email}
+      />
+
+      <VerificationModal
+        open={openVerificationModal}
+        onClose={() => setOpenVerificationModal(false)}
+        isRegistration={false}
+        onVerify={handleVerification}
+        email={email}
+      />
+
+      <Dialog
+        open={showForgotPasswordModal}
+        onClose={() => !isLoading && setShowForgotPasswordModal(false)}
+        PaperProps={{ sx: { borderRadius: 4, width: '100%', maxWidth: 400, p: 1 } }}
+      >
+        <DialogTitle sx={{ textAlign: 'center', fontWeight: 800, color: '#0F172A' }}>
+          Reset Password
+        </DialogTitle>
+        <DialogContent>
+          <Box component='form' noValidate sx={{ mt: 1 }}>
+            <TextField
+              fullWidth
+              label='Registered Email'
+              value={resetEmail}
+              onChange={(e) => setResetEmail(e.target.value)}
+              disabled={isSentOtp}
+              margin="normal"
+              sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position='start'>
+                    <EmailIcon color="primary" />
+                  </InputAdornment>
+                ),
+              }}
+            />
+
+            {!isSentOtp ? (
+              <Button fullWidth variant='contained' onClick={sentOtp} disabled={isLoading} sx={{ mt: 2, py: 1.5, borderRadius: 3, fontWeight: 700 }}>
+                {isLoading ? 'Sending...' : 'Request OTP'}
               </Button>
+            ) : (
+              <>
+                <TextField fullWidth label='OTP' type='number' value={otp} onChange={(e) => setOtp(e.target.value)} margin="normal" sx={{ mt: 2, '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
+                <TextField fullWidth label='New Password' type='password' value={resetPassword} onChange={(e) => setResetPassword(e.target.value)} margin="normal" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
+                {resetPassword && <Box sx={{ mt: 1 }}><PasswordStrengthIndicator password={resetPassword} /></Box>}
+                <TextField fullWidth label='Confirm New Password' type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} margin="normal" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
+              </>
             )}
-          </DialogActions>
-        </Dialog>
-      </Container>
+          </Box>
+        </DialogContent>
+        <DialogActions sx={{ p: 3, pt: 0 }}>
+          <Button onClick={() => setShowForgotPasswordModal(false)} sx={{ fontWeight: 600, color: '#64748B' }}>Cancel</Button>
+          {isSentOtp && <Button onClick={handleReset} variant='contained' disabled={isLoading} sx={{ borderRadius: 3, px: 4, fontWeight: 700 }}>Update Password</Button>}
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
