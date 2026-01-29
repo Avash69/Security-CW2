@@ -228,7 +228,7 @@ const Homepage = () => {
                 letterSpacing: '-0.02em',
               }}
             >
-              Welcome to FilmSathi
+              Welcome to Movie-Mitra
             </Typography>
             <Typography
               variant={isMobile ? 'h6' : 'h5'}
