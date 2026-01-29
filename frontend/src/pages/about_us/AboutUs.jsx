@@ -98,7 +98,7 @@ const AboutUs = () => {
                 textShadow: '0 2px 4px rgba(0,0,0,0.3)',
               }}
             >
-              About FilmSathi
+              About Movie-Mitra
             </Typography>
             <Typography
               variant="h5"
