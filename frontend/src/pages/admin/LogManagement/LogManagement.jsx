@@ -42,7 +42,7 @@ const LogManagement = () => {
       {
         _id: '1',
         level: 'info',
-        message: 'FilmSathi system initialized successfully',
+        message: 'Movie-Mitra system initialized successfully',
         method: 'GET',
         url: '/api/system/init',
         user: 'system',
