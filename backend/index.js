@@ -152,7 +152,7 @@ app.use(
 const PORT = process.env.PORT || 5000;
 
 // Add startup logging
-console.log('🚀 Starting FilmSathi Backend Server...');
+console.log('🚀 Starting Movie-Mitra Backend Server...');
 console.log(`📡 Port: ${PORT}`);
 console.log(`🌍 Environment: ${process.env.NODE_ENV || 'development'}`);
 console.log(`📊 Database: ${process.env.MONGODB_LOCAL ? 'Local MongoDB' : 'Cloud MongoDB'}`);
