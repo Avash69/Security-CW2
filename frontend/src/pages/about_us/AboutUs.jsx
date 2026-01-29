@@ -230,7 +230,7 @@ const AboutUs = () => {
               color: 'text.primary',
             }}
           >
-            Why Choose FilmSathi?
+            Why Choose Movie-Mitra?
           </Typography>
           <Typography
             variant="h6"
