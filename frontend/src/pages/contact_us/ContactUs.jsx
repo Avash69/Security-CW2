@@ -410,7 +410,7 @@ const ContactUs = () => {
                 <Box sx={{ display: 'flex', gap: 1 }}>
                   <IconButton
                     component="a"
-                    href="https://www.facebook.com/aayush.ghimire.18/"
+                    href="https://www.facebook.com/avash.mahato.5/"
                     target="_blank"
                     rel="noopener noreferrer"
                     sx={{
