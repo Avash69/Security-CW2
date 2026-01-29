@@ -55,7 +55,7 @@ const LogManagement = () => {
         message: 'Admin user Avash logged in successfully',
         method: 'POST',
         url: '/api/user/login',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 240000) // 4 minutes ago
       },
