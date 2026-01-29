@@ -1,0 +1,19 @@
+Connected to MongoDB
+
+--- ALL SHOWS (2) ---
+Show ID: 697b7a105950a0f2841917d3
+Movie ID Ref: 697b79ef5950a0f2841917c8
+Linked Movie Name: 1. Mission: Impossible – The Final Reckoning (2025)
+Date: Sat Jan 31 2026 05:45:00 GMT+0545 (Nepal Time)
+Time: 11:15
+------------------
+Show ID: 697b7a9c5950a0f2841918db
+Movie ID Ref: 697b79ef5950a0f2841917c8
+Linked Movie Name: 1. Mission: Impossible – The Final Reckoning (2025)
+Date: Fri Jan 02 2026 05:45:00 GMT+0545 (Nepal Time)
+Time: 12:00
+------------------
+
+--- ALL MOVIES (2) ---
+Movie: 1. Mission: Impossible – The Final Reckoning (2025), ID: 697b79ef5950a0f2841917c8
+Movie: The Smashing Machine (2025), ID: 697b7a855950a0f2841918d0
