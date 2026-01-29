@@ -426,25 +426,9 @@ const ContactUs = () => {
                     <Facebook />
                   </IconButton>
                   <IconButton
+                   
                     component="a"
-                    href="https://x.com/AayushG06895950"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      background: `linear-gradient(135deg, #1da1f2 0%, #0c85d0 100%)`,
-                      color: 'white',
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 8px 20px rgba(29,161,242,0.3)',
-                      },
-                      transition: 'all 0.3s ease',
-                    }}
-                  >
-                    <Twitter />
-                  </IconButton>
-                  <IconButton
-                    component="a"
-                    href="https://www.instagram.com/aayush4599/"
+                    href="https://www.instagram.com/avash_mahato?igsh=MWZicm0yMXR4aWFnNg==/"
                     target="_blank"
                     rel="noopener noreferrer"
                     sx={{
