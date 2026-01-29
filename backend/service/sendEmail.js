@@ -58,7 +58,7 @@ const createEmailTemplate = async (email, otp, templateType = 'login') => {
             <!-- Logo Header -->
             <div style="text-align: center; margin-bottom: 40px;">
               <div style="background-color: #2a7d73; padding: 24px; border-radius: 16px;">
-                <h1 style="color: #ffffff; font-size: 28px; font-weight: 700; margin: 0;">FilmSathi</h1>
+                <h1 style="color: #ffffff; font-size: 28px; font-weight: 700; margin: 0;">Movie-Mitra</h1>
                 <p style="color: #e2e8f0; font-size: 14px; margin: 4px 0 0 0;">Your Gateway to Entertainment</p>
               </div>
             </div>
