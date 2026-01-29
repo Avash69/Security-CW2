@@ -25,6 +25,7 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
+  Paper,
 } from '@mui/material';
 import React, { useMemo, useState } from 'react';
 import ReCAPTCHA from 'react-google-recaptcha';
@@ -92,11 +93,6 @@ const PasswordStrengthIndicator = ({ password }) => {
         <Typography variant='caption' sx={{ color: strengthColor, fontWeight: 700 }}>
           {strengthText}
         </Typography>
-        {result.feedback.warning && (
-          <Typography variant='caption' color='text.secondary'>
-            {result.feedback.warning}
-          </Typography>
-        )}
       </Box>
     </>
   );
@@ -253,213 +249,194 @@ const Login = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', display: 'flex', bgcolor: '#FFFFFF' }}>
-      <Grid container sx={{ flex: 1 }}>
-        {/* Left Side: Hero Illustration (hidden on mobile) */}
-        {!isMobile && (
-          <Grid item md={6} lg={7} sx={{ position: 'relative', overflow: 'hidden' }}>
-            <Box
-              sx={{
-                width: '100%',
-                height: '100%',
-                backgroundImage: `url(${loginHero})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                '&::before': {
-                  content: '""',
+    <Box sx={{
+      minHeight: '100vh',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      background: 'linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%)',
+      p: { xs: 2, md: 4 }
+    }}>
+      <Fade in timeout={1000}>
+        <Paper
+          elevation={0}
+          sx={{
+            width: '100%',
+            maxWidth: 1000,
+            borderRadius: 6,
+            overflow: 'hidden',
+            display: 'flex',
+            bgcolor: 'white',
+            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.08)',
+            border: '1px solid #E2E8F0',
+          }}
+        >
+          <Grid container>
+            {/* Left Side: Hero Illustration (contained) */}
+            {!isMobile && (
+              <Grid item md={5} sx={{ position: 'relative' }}>
+                <Box
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${loginHero})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                  }}
+                />
+                <Box sx={{
                   position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(135deg, rgba(25, 118, 210, 0.2) 0%, rgba(15, 23, 42, 0.4) 100%)',
-                }
-              }}
-            />
-            {/* Logo/Branding on Image */}
-            <Box sx={{ position: 'absolute', top: 40, left: 40, zIndex: 10 }}>
-              <Typography variant="h4" sx={{
-                fontWeight: 900,
-                color: 'white',
-                letterSpacing: '-0.03em',
-                textShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 1
-              }}>
-                <LocalMoviesIcon sx={{ fontSize: 40 }} />
-                Movie-Mitra
-              </Typography>
-            </Box>
-            <Box sx={{ position: 'absolute', bottom: 60, left: 60, right: 60, zIndex: 10 }}>
-              <Typography variant="h2" sx={{ fontWeight: 800, color: 'white', mb: 2, letterSpacing: '-0.04em', lineHeight: 1 }}>
-                Cinematic Experiences,<br />Simplified.
-              </Typography>
-              <Typography variant="h6" sx={{ color: 'white', opacity: 0.9, fontWeight: 400, maxWidth: 500 }}>
-                Book tickets, discover new releases, and manage your cinema journey with Nepal's premier platform.
-              </Typography>
-            </Box>
-          </Grid>
-        )}
-
-        {/* Right Side: Login Form */}
-        <Grid item xs={12} md={6} lg={5} sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'linear-gradient(135deg, #F8FAFC 0%, #EFF6FF 100%)',
-          position: 'relative',
-        }}>
-          {isMobile && (
-            <Box sx={{ position: 'absolute', top: 20, left: 20 }}>
-              <Typography variant="h6" sx={{ fontWeight: 800, color: '#1976D2', letterSpacing: '-0.02em' }}>
-                Movie-Mitra
-              </Typography>
-            </Box>
-          )}
-
-          <Fade in timeout={1000}>
-            <Container maxWidth="xs" sx={{ px: { xs: 3, sm: 4 } }}>
-              <Box sx={{ textAlign: 'center', mb: 4 }}>
-                <Typography variant="h4" sx={{ fontWeight: 800, color: '#0F172A', mb: 1, letterSpacing: '-0.02em' }}>
-                  Welcome Back
-                </Typography>
-                <Typography variant="body1" sx={{ color: '#64748B', fontWeight: 500 }}>
-                  Enter your credentials to access your terminal.
-                </Typography>
-              </Box>
-
-              <Card elevation={0} sx={{
-                bgcolor: 'transparent',
-              }}>
-                <CardContent sx={{ p: 0 }}>
-                  <Box component='form' onSubmit={handleSubmit} noValidate>
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      margin='normal'
-                      required
-                      label='Email Address'
-                      autoComplete='email'
-                      autoFocus
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      error={!!emailError}
-                      helperText={emailError}
-                      sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: 3,
-                          bgcolor: 'white',
-                        }
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position='start'>
-                            <EmailIcon color={emailError ? 'error' : 'primary'} />
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    <TextField
-                      fullWidth
-                      variant="outlined"
-                      margin='normal'
-                      required
-                      label='Password'
-                      type={showPassword ? 'text' : 'password'}
-                      autoComplete='current-password'
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      error={!!passwordError}
-                      helperText={passwordError}
-                      sx={{
-                        '& .MuiOutlinedInput-root': {
-                          borderRadius: 3,
-                          bgcolor: 'white',
-                        }
-                      }}
-                      InputProps={{
-                        startAdornment: (
-                          <InputAdornment position='start'>
-                            <LockIcon color={passwordError ? 'error' : 'primary'} />
-                          </InputAdornment>
-                        ),
-                        endAdornment: (
-                          <InputAdornment position='end'>
-                            <IconButton
-                              onClick={() => setShowPassword(!showPassword)}
-                              edge='end'
-                              size='large'>
-                              {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                    />
-
-                    <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                      <ReCAPTCHA
-                        sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
-                        onChange={(token) => setCaptchaToken(token)}
-                        onExpired={() => setCaptchaToken(null)}
-                      />
-                    </Box>
-
-                    <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
-                      <Button
-                        onClick={() => setShowForgotPasswordModal(true)}
-                        sx={{ textTransform: 'none', fontWeight: 600, color: '#1976D2' }}>
-                        Forgot Password?
-                      </Button>
-                    </Box>
-
-                    <Button
-                      type='submit'
-                      fullWidth
-                      variant='contained'
-                      disabled={isLoading || !captchaToken}
-                      sx={{
-                        mt: 3,
-                        mb: 3,
-                        py: 1.8,
-                        fontSize: '1rem',
-                        fontWeight: 700,
-                        textTransform: 'none',
-                        borderRadius: 3,
-                        bgcolor: '#1976D2',
-                        boxShadow: '0 10px 20px rgba(25, 118, 210, 0.2)',
-                        '&:hover': {
-                          bgcolor: '#1565C0',
-                          transform: 'translateY(-2px)',
-                          boxShadow: '0 12px 24px rgba(25, 118, 210, 0.3)',
-                        },
-                        transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
-                      }}>
-                      {isLoading ? 'Processing...' : 'Login to Account'}
-                    </Button>
-
-                    <Box sx={{
-                      textAlign: 'center',
-                      p: 2,
-                      borderRadius: 3,
-                      bgcolor: '#F1F5F9',
-                      border: '1px solid #E2E8F0'
-                    }}>
-                      <Typography variant='body2' sx={{ color: '#475569', fontWeight: 600 }}>
-                        Don't have an account?{' '}
-                        <Link to='/register' style={{ color: '#1976D2', textDecoration: 'none', fontWeight: 800 }}>
-                          Sign Up Free
-                        </Link>
-                      </Typography>
-                    </Box>
+                  top: 0, left: 0, right: 0, bottom: 0,
+                  background: 'linear-gradient(to bottom, rgba(25, 118, 210, 0.1), rgba(15, 23, 42, 0.3))',
+                  p: 4,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  color: 'white'
+                }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <LocalMoviesIcon sx={{ fontSize: 32 }} />
+                    <Typography variant="h6" sx={{ fontWeight: 900, letterSpacing: '-0.02em' }}>
+                      Movie-Mitra
+                    </Typography>
                   </Box>
-                </CardContent>
-              </Card>
-            </Container>
-          </Fade>
-        </Grid>
-      </Grid>
+                  <Box>
+                    <Typography variant="h4" sx={{ fontWeight: 800, mb: 1, letterSpacing: '-0.03em', lineHeight: 1.2 }}>
+                      The Magic Begins Here.
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                      Step into the terminal of Nepal's finest cinema network.
+                    </Typography>
+                  </Box>
+                </Box>
+              </Grid>
+            )}
+
+            {/* Right Side: Login Form */}
+            <Grid item xs={12} md={7} sx={{ p: { xs: 4, sm: 6, md: 8 } }}>
+              <Box sx={{ maxWidth: 400, mx: 'auto' }}>
+                <Box sx={{ mb: 4 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 800, color: '#0F172A', mb: 1, letterSpacing: '-0.02em' }}>
+                    Sign In
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#64748B', fontWeight: 500 }}>
+                    Enter your credentials to manage your journey.
+                  </Typography>
+                </Box>
+
+                <Box component='form' onSubmit={handleSubmit} noValidate>
+                  <TextField
+                    fullWidth
+                    label='Email Address'
+                    variant="outlined"
+                    margin='normal'
+                    required
+                    autoComplete='email'
+                    autoFocus
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    error={!!emailError}
+                    helperText={emailError}
+                    sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3, bgcolor: '#F8FAFC' } }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position='start'>
+                          <EmailIcon color={emailError ? 'error' : 'primary'} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <TextField
+                    fullWidth
+                    label='Password'
+                    variant="outlined"
+                    margin='normal'
+                    required
+                    type={showPassword ? 'text' : 'password'}
+                    autoComplete='current-password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    error={!!passwordError}
+                    helperText={passwordError}
+                    sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3, bgcolor: '#F8FAFC' } }}
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position='start'>
+                          <LockIcon color={passwordError ? 'error' : 'primary'} />
+                        </InputAdornment>
+                      ),
+                      endAdornment: (
+                        <InputAdornment position='end'>
+                          <IconButton onClick={() => setShowPassword(!showPassword)} edge='end'>
+                            {showPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                          </IconButton>
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+
+                  <Box sx={{ mt: 2, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <ReCAPTCHA
+                      sitekey='6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI'
+                      onChange={(token) => setCaptchaToken(token)}
+                      onExpired={() => setCaptchaToken(null)}
+                    />
+                  </Box>
+
+                  <Box sx={{ display: 'flex', justifyContent: 'flex-end', mt: 1 }}>
+                    <Button
+                      onClick={() => setShowForgotPasswordModal(true)}
+                      sx={{ textTransform: 'none', fontWeight: 600, color: '#1976D2' }}>
+                      Forgot Password?
+                    </Button>
+                  </Box>
+
+                  <Button
+                    type='submit'
+                    fullWidth
+                    variant='contained'
+                    disabled={isLoading || !captchaToken}
+                    sx={{
+                      mt: 3,
+                      mb: 3,
+                      py: 1.8,
+                      fontSize: '1rem',
+                      fontWeight: 700,
+                      textTransform: 'none',
+                      borderRadius: 3,
+                      bgcolor: '#1976D2',
+                      boxShadow: '0 10px 20px rgba(25, 118, 210, 0.15)',
+                      '&:hover': {
+                        bgcolor: '#1565C0',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 12px 24px rgba(25, 118, 210, 0.25)',
+                      },
+                      transition: 'all 0.2s cubic-bezier(0.4, 0, 0.2, 1)',
+                    }}>
+                    {isLoading ? 'Processing...' : 'Continue'}
+                  </Button>
+
+                  <Box sx={{
+                    textAlign: 'center',
+                    p: 2,
+                    borderRadius: 3,
+                    bgcolor: '#F8FAFC',
+                    border: '1px solid #F1F5F9'
+                  }}>
+                    <Typography variant='body2' sx={{ color: '#64748B', fontWeight: 600 }}>
+                      New here?{' '}
+                      <Link to='/register' style={{ color: '#1976D2', textDecoration: 'none', fontWeight: 800 }}>
+                        Create Account
+                      </Link>
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </Grid>
+          </Grid>
+        </Paper>
+      </Fade>
 
       {/* Auth Modals */}
       <VerificationModal
@@ -483,45 +460,36 @@ const Login = () => {
         onClose={() => !isLoading && setShowForgotPasswordModal(false)}
         PaperProps={{ sx: { borderRadius: 4, width: '100%', maxWidth: 400, p: 1 } }}
       >
-        <DialogTitle sx={{ textAlign: 'center', fontWeight: 800, color: '#0F172A' }}>
-          Reset Password
-        </DialogTitle>
+        <DialogTitle sx={{ textAlign: 'center', fontWeight: 800 }}>Reset Password</DialogTitle>
         <DialogContent>
           <Box component='form' noValidate sx={{ mt: 1 }}>
             <TextField
               fullWidth
-              label='Registered Email'
+              label='Email'
               value={resetEmail}
               onChange={(e) => setResetEmail(e.target.value)}
               disabled={isSentOtp}
               margin="normal"
               sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position='start'>
-                    <EmailIcon color="primary" />
-                  </InputAdornment>
-                ),
-              }}
             />
 
             {!isSentOtp ? (
               <Button fullWidth variant='contained' onClick={sentOtp} disabled={isLoading} sx={{ mt: 2, py: 1.5, borderRadius: 3, fontWeight: 700 }}>
-                {isLoading ? 'Sending...' : 'Request OTP'}
+                Request Code
               </Button>
             ) : (
               <>
                 <TextField fullWidth label='OTP' type='number' value={otp} onChange={(e) => setOtp(e.target.value)} margin="normal" sx={{ mt: 2, '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
                 <TextField fullWidth label='New Password' type='password' value={resetPassword} onChange={(e) => setResetPassword(e.target.value)} margin="normal" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
                 {resetPassword && <Box sx={{ mt: 1 }}><PasswordStrengthIndicator password={resetPassword} /></Box>}
-                <TextField fullWidth label='Confirm New Password' type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} margin="normal" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
+                <TextField fullWidth label='Confirm Password' type='password' value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} margin="normal" sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }} />
               </>
             )}
           </Box>
         </DialogContent>
         <DialogActions sx={{ p: 3, pt: 0 }}>
           <Button onClick={() => setShowForgotPasswordModal(false)} sx={{ fontWeight: 600, color: '#64748B' }}>Cancel</Button>
-          {isSentOtp && <Button onClick={handleReset} variant='contained' disabled={isLoading} sx={{ borderRadius: 3, px: 4, fontWeight: 700 }}>Update Password</Button>}
+          {isSentOtp && <Button onClick={handleReset} variant='contained' disabled={isLoading} sx={{ borderRadius: 3, px: 4, fontWeight: 700 }}>Reset Now</Button>}
         </DialogActions>
       </Dialog>
     </Box>
