@@ -162,7 +162,7 @@ const initializeKhaltiPayment = async (details) => {
 // Route handler to initialize Khalti payment
 const initializeKhalti = async (req, res) => {
   console.log('🎬 Khalti payment initialization request received');
-  console.log('� Using Khalti Portal: Movie Ticketing system (aghimire781@gmail.com)');
+  console.log('� Using Khalti Portal: Movie Ticketing system (mahatoavash90@gmail.com)');
   console.log('�📋 Request body:', req.body);
   
   try {
