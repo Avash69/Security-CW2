@@ -209,7 +209,7 @@ const AboutUs = () => {
                     flexGrow: 1,
                   }}
                 >
-                  At FilmSathi, we're on a mission to revolutionize the way you experience movies. We strive to provide 
+                  At Movie-Mitra, we're on a mission to revolutionize the way you experience movies. We strive to provide 
                   a seamless, user-friendly platform that connects movie-goers with the latest blockbusters, indie gems, 
                   and timeless classics. Our goal is to eliminate the hassle from movie booking and focus on what matters 
                   most - your entertainment experience.
