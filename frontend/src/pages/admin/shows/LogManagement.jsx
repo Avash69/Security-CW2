@@ -52,10 +52,10 @@ const LogManagement = () => {
       {
         _id: '2',
         level: 'success',
-        message: 'Admin user Aayush logged in successfully',
+        message: 'Admin user Avash logged in successfully',
         method: 'POST',
         url: '/api/user/login',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 240000) // 4 minutes ago
       },
@@ -65,7 +65,7 @@ const LogManagement = () => {
         message: 'Movie database accessed for listing',
         method: 'GET',
         url: '/api/movie/get_all_movies',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 180000) // 3 minutes ago
       },
@@ -85,7 +85,7 @@ const LogManagement = () => {
         message: 'New movie "Ramshetu" created successfully',
         method: 'POST',
         url: '/api/movie/create',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 60000) // 1 minute ago
       },
@@ -95,7 +95,7 @@ const LogManagement = () => {
         message: 'Dashboard statistics requested',
         method: 'GET',
         url: '/api/admin/dashboard_stats',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 30000) // 30 seconds ago
       },
@@ -115,7 +115,7 @@ const LogManagement = () => {
         message: 'Log management page accessed',
         method: 'GET',
         url: '/api/admin/get_all_logs',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date()
       },
@@ -145,7 +145,7 @@ const LogManagement = () => {
         message: 'File upload failed - invalid file type',
         method: 'POST',
         url: '/api/movie/create',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 540000) // 9 minutes ago
       },
@@ -155,7 +155,7 @@ const LogManagement = () => {
         message: 'Movie show times updated successfully',
         method: 'PUT',
         url: '/api/shows/update',
-        user: 'aayush_admin',
+        user: 'avash_admin',
         ip: '192.168.1.100',
         timestamp: new Date(Date.now() - 600000) // 10 minutes ago
       }
