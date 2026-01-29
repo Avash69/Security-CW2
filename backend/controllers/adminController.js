@@ -112,7 +112,7 @@ const ensureSampleLogs = async () => {
       const sampleLogs = [
         {
           level: 'info',
-          message: 'FilmSathi system initialized successfully',
+          message: 'Movie-Mitra system initialized successfully',
           method: 'GET',
           url: '/api/system/init',
           user: 'system',
@@ -121,10 +121,10 @@ const ensureSampleLogs = async () => {
         },
         {
           level: 'success',
-          message: 'Admin user Aayush logged in',
+          message: 'Admin user Avash logged in',
           method: 'POST',
           url: '/api/user/login',
-          user: 'aayush_admin',
+          user: 'avash_admin',
           ip: '192.168.1.100',
           timestamp: new Date(currentTime.getTime() - 4000)
         },
@@ -133,7 +133,7 @@ const ensureSampleLogs = async () => {
           message: 'Movie database accessed for listing',
           method: 'GET',
           url: '/api/movie/get_all_movies',
-          user: 'aayush_admin',
+          user: 'avash_admin',
           ip: '192.168.1.100',
           timestamp: new Date(currentTime.getTime() - 3000)
         },
@@ -151,7 +151,7 @@ const ensureSampleLogs = async () => {
           message: 'New movie "Ramshetu" created successfully',
           method: 'POST',
           url: '/api/movie/create',
-          user: 'aayush_admin',
+          user: 'avash_admin',
           ip: '192.168.1.100',
           timestamp: new Date(currentTime.getTime() - 1000)
         },
@@ -160,7 +160,7 @@ const ensureSampleLogs = async () => {
           message: 'Dashboard statistics requested',
           method: 'GET',
           url: '/api/admin/dashboard_stats',
-          user: 'aayush_admin',
+          user: 'avash_admin',
           ip: '192.168.1.100',
           timestamp: currentTime
         },
@@ -178,7 +178,7 @@ const ensureSampleLogs = async () => {
           message: 'Log management page accessed',
           method: 'GET',
           url: '/api/admin/get_all_logs',
-          user: 'aayush_admin',
+          user: 'avash_admin',
           ip: '192.168.1.100',
           timestamp: new Date(currentTime.getTime() + 1000)
         },
