@@ -9,7 +9,7 @@ async function testKhaltiConfig() {
   console.log('🔍 Environment Variables:');
   console.log('- KHALTI_SECRET_KEY:', process.env.KHALTI_SECRET_KEY ? process.env.KHALTI_SECRET_KEY.substring(0, 8) + '...' : 'Missing ❌');
   console.log('- KHALTI_GATEWAY_URL:', process.env.KHALTI_GATEWAY_URL || 'Missing ❌');
-  console.log('- Using Khalti Portal: Movie Ticketing system (aghimire781@gmail.com)');
+  console.log('- Using Khalti Portal: Movie Ticketing system (mahatoavash90@gmail.com)');
   
   if (!process.env.KHALTI_SECRET_KEY || !process.env.KHALTI_GATEWAY_URL) {
     console.log('❌ Missing required environment variables!');
