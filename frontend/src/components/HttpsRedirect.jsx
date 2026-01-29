@@ -35,7 +35,7 @@ const HttpsRedirect = () => {
           🚨 HTTPS Not Supported
         </Typography>
         <Typography variant="body1" gutterBottom>
-          FilmSathi is configured for HTTP only in development mode.
+          Movie-Mitra is configured for HTTP only in development mode.
         </Typography>
         <Typography variant="body2">
           Redirecting to HTTP version in 3 seconds...
