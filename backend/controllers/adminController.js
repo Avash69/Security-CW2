@@ -6,13 +6,13 @@ const Logs = require('../models/logModel');
 const getDashboardStats = async (req, res) => {
   try {
     console.log('Fetching dashboard statistics...');
-    
+
     const totalUserLogins = await User.countDocuments({});
     console.log('Total users:', totalUserLogins);
-    
+
     const totalMoviesAdded = await Movie.countDocuments({});
     console.log('Total movies:', totalMoviesAdded);
-    
+
     const totalBookings = await Bookings.countDocuments({});
     console.log('Total bookings:', totalBookings);
 
@@ -24,12 +24,15 @@ const getDashboardStats = async (req, res) => {
 
     console.log('Dashboard stats response:', stats);
 
-    res.status(200).json(stats);
+    res.status(200).json({
+      success: true,
+      ...stats
+    });
   } catch (error) {
     console.error('Error fetching dashboard statistics:', error);
-    res.status(500).json({ 
+    res.status(500).json({
       message: 'Error fetching dashboard statistics',
-      error: error.message 
+      error: error.message
     });
   }
 };
@@ -38,7 +41,7 @@ const getDashboardStats = async (req, res) => {
 const getAllLogs = async (req, res) => {
   try {
     console.log('Getting all logs - Request params:', req.query);
-    
+
     const page = parseInt(req.query.page) || 1; // Current page
     const limit = parseInt(req.query.limit) || 10; // Logs per page
     const searchTerm = req.query.searchTerm || ''; // Search term
@@ -88,12 +91,15 @@ const getAllLogs = async (req, res) => {
       totalPages: response.totalPages
     });
 
-    res.status(200).json(response);
+    res.status(200).json({
+      success: true,
+      ...response
+    });
   } catch (error) {
     console.error('Error fetching logs:', error);
-    res.status(500).json({ 
-      message: 'Error fetching logs', 
-      error: error.message 
+    res.status(500).json({
+      message: 'Error fetching logs',
+      error: error.message
     });
   }
 };
@@ -103,11 +109,11 @@ const ensureSampleLogs = async () => {
   try {
     const logCount = await Logs.countDocuments({});
     console.log('Current log count:', logCount);
-    
+
     // If less than 10 logs, create more sample logs
     if (logCount < 10) {
       console.log('Creating sample logs...');
-      
+
       const currentTime = new Date();
       const sampleLogs = [
         {
@@ -204,7 +210,7 @@ const ensureSampleLogs = async () => {
 
       // Remove existing logs to avoid duplicates
       await Logs.deleteMany({});
-      
+
       // Insert new sample logs
       await Logs.insertMany(sampleLogs);
       console.log('✅ Sample logs created successfully');

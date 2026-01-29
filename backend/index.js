@@ -27,16 +27,16 @@ app.use(morgan('dev'));
 const corsOptions = {
   origin: (origin, callback) => {
     const allowedOrigins = process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : ['http://localhost:3000', 'https://localhost:3000'];
-    
+
     console.log(`🌐 CORS check - Origin: ${origin || 'null'}`);
     console.log(`🌐 Allowed origins:`, allowedOrigins);
-    
+
     // Allow requests with no origin (like mobile apps or curl requests)
     if (!origin) {
       console.log('✅ No origin - allowing request');
       return callback(null, true);
     }
-    
+
     if (allowedOrigins.includes(origin)) {
       console.log('✅ Origin allowed');
       callback(null, true); // Allow the request
@@ -100,11 +100,12 @@ app.use(cookieParser()); // Enable cookie parsing
 // Enable file upload
 app.use(
   accessFormData({
-    limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 2MB
+    limits: { fileSize: 5 * 1024 * 1024 }, // Limit file size to 5MB
     abortOnLimit: true, // Abort upload if file exceeds size limit
     safeFileNames: true, // Sanitize filenames automatically
     preserveExtension: true, // Preserve file extensions
     allowedTypes: ['image/jpeg', 'image/png'],
+    createParentPath: true, // Automatically create parent directories
   })
 );
 

@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const mongoSanitize = require('mongo-sanitize');
 const Log = require('../models/logModel');
+const userModel = require('../models/userModel');
 
 // Extract token from the 'Authorization' header
 const extractTokenFromHeaders = (headers) => {
@@ -199,6 +200,8 @@ const adminGuard = async (req, res, next) => {
         user: user.email,
         ip: req.ip,
       });
+
+      return next();
     }
 
     if (!user.isAdmin) {
