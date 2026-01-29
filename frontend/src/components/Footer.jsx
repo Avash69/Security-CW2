@@ -80,7 +80,7 @@ const Footer = () => {
                 mb: 1,
                 letterSpacing: '-0.02em',
               }}>
-              FilmSathi
+              Movie-Mitra
             </Typography>
             <Box sx={{ width: 40, h: 4, bgcolor: '#1976D2', mx: 'auto', borderRadius: 2 }} />
           </Box>
