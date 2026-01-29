@@ -32,9 +32,10 @@ const Footer = () => {
     <Box
       component='footer'
       sx={{
-        bgcolor: 'background.paper',
-        py: 6,
+        bgcolor: '#050B18',
+        py: 8,
         mt: 'auto',
+        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
       }}>
       <Container maxWidth='lg'>
         <Stack
@@ -49,19 +50,21 @@ const Footer = () => {
               <Divider
                 orientation='vertical'
                 flexItem
-                sx={{ bgcolor: 'grey.300' }}
+                sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }}
               />
             }>
             <Link
               component={StyledLink}
               to='/aboutUs'
-              variant='subtitle1'>
+              variant='subtitle1'
+              sx={{ color: '#94A3B8', '&:hover': { color: '#FFC107' } }}>
               About Us
             </Link>
             <Link
               component={StyledLink}
               to='/contactUs'
-              variant='subtitle1'>
+              variant='subtitle1'
+              sx={{ color: '#94A3B8', '&:hover': { color: '#FFC107' } }}>
               Contact Us
             </Link>
           </Stack>
@@ -72,24 +75,23 @@ const Footer = () => {
               variant='h4'
               component='h1'
               sx={{
-                background: theme.palette.primary.main,
-                backgroundImage: `linear-gradient(45deg, ${theme.palette.primary.main}, ${theme.palette.primary.light})`,
-                backgroundClip: 'text',
+                background: 'linear-gradient(135deg, #FFC107 0%, #FFF59D 100%)',
                 WebkitBackgroundClip: 'text',
                 color: 'transparent',
                 fontWeight: 'bold',
                 mb: 2,
+                letterSpacing: '1px',
               }}>
-              FilmSathi 
+              FilmSathi
             </Typography>
           </Box>
 
           {/* Tagline */}
           <Typography
             variant='subtitle1'
-            color='text.secondary'
+            color='#94A3B8'
             align='center'
-            sx={{ maxWidth: 'sm', mx: 'auto' }}>
+            sx={{ maxWidth: 'sm', mx: 'auto', opacity: 0.8 }}>
             Bringing the magic of movies to life.
             <br />
             Enjoy the ultimate cinematic experience with us.
@@ -98,10 +100,10 @@ const Footer = () => {
           {/* Copyright */}
           <Typography
             variant='body2'
-            color='text.secondary'
+            color='#64748B'
             align='center'
             sx={{ mt: 2 }}>
-            © {new Date().getFullYear()} Copyright: FilmSathi 
+            © {new Date().getFullYear()} FilmSathi. Premium Cinema Experience.
           </Typography>
         </Stack>
       </Container>

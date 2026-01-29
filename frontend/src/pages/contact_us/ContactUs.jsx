@@ -369,7 +369,7 @@ const ContactUs = () => {
                         Phone
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        +977 9860099869
+                        +977 9843992986
                       </Typography>
                     </Box>
                   </Box>
@@ -391,7 +391,7 @@ const ContactUs = () => {
                         Email
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        aghimire491@gmail.com
+                        mahatoavash90@gmail.com
                       </Typography>
                     </Box>
                   </Box>

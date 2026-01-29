@@ -62,7 +62,7 @@ const Homepage = () => {
 
       console.log('Fetching movie count...');
       console.log('API Base URL:', process.env.REACT_APP_API_URL || 'http://localhost:5000');
-      
+
       const countRes = await getMovieCount();
       console.log('Movie count response:', countRes);
 
@@ -84,7 +84,7 @@ const Homepage = () => {
 
       console.log('Fetching movies with pagination...');
       console.log('Page:', page, 'Limit:', limit);
-      
+
       const moviesRes = await pagination(page, limit);
       console.log('Movies response:', moviesRes);
 
@@ -96,9 +96,9 @@ const Homepage = () => {
       console.log('Successfully fetched', moviesRes.data.movies.length, 'movies');
     } catch (err) {
       console.error('Error fetching data:', err);
-      
+
       let errorMessage = 'An error occurred while fetching data';
-      
+
       if (err.code === 'ECONNREFUSED' || err.code === 'ERR_NETWORK') {
         errorMessage = 'Unable to connect to the server. Please check if the backend is running on http://localhost:5000';
       } else if (err.response?.status === 404) {
@@ -110,7 +110,7 @@ const Homepage = () => {
       } else if (err.message) {
         errorMessage = err.message;
       }
-      
+
       setError(errorMessage);
       setShowError(true);
     } finally {
@@ -171,7 +171,7 @@ const Homepage = () => {
       <Container sx={{ mt: 10, mb: 4 }}>
         <Alert
           severity='error'
-          sx={{ 
+          sx={{
             mt: 5,
             borderRadius: 2,
             boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
@@ -196,9 +196,9 @@ const Homepage = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.dark} 100%)`,
+          background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
           color: 'white',
-          py: { xs: 6, md: 8 },
+          py: { xs: 8, md: 12 },
           mt: 8,
           position: 'relative',
           overflow: 'hidden',
@@ -223,7 +223,10 @@ const Homepage = () => {
               sx={{
                 fontWeight: 'bold',
                 mb: 2,
-                textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+                background: 'linear-gradient(135deg, #FFC107 0%, #FFF59D 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textShadow: '0 4px 12px rgba(255, 193, 7, 0.2)',
               }}
             >
               Welcome to FilmSathi

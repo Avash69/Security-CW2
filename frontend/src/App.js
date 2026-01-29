@@ -35,11 +35,54 @@ import AdminLayout from './pages/admin/AdminLayout.jsx';
 
 const theme = createTheme({
   palette: {
+    mode: 'dark',
     primary: {
-      main: '#007bff',
+      main: '#FFC107', // Amber/Gold
+      light: '#FFD54F',
+      dark: '#FFA000',
     },
     secondary: {
-      main: '#ffffff',
+      main: '#0A1929', // Deep Midnight Blue
+      light: '#132F4C',
+      dark: '#000814',
+    },
+    background: {
+      default: '#020817', // Very Dark Blue
+      paper: '#0F172A', // Slate Blue
+    },
+    text: {
+      primary: '#F8FAFC',
+      secondary: '#94A3B8',
+    },
+  },
+  typography: {
+    fontFamily: '"Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
+    h2: {
+      fontWeight: 700,
+    },
+    h4: {
+      fontWeight: 600,
+    },
+  },
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          borderRadius: 8,
+          textTransform: 'none',
+          fontWeight: 600,
+        },
+      },
+    },
+    MuiCard: {
+      styleOverrides: {
+        root: {
+          borderRadius: 16,
+          backgroundColor: '#0F172A',
+          border: '1px solid rgba(255, 255, 255, 0.1)',
+          backdropFilter: 'blur(10px)',
+        },
+      },
     },
   },
 });

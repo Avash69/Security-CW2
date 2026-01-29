@@ -98,7 +98,7 @@ const Navbar = () => {
                 primary={item.label}
                 sx={{
                   '& .MuiTypography-root': {
-                    color: isActive(item.path) ? '#1976d2' : '#333333',
+                    color: isActive(item.path) ? '#FFC107' : '#F8FAFC',
                     fontWeight: 500
                   }
                 }}
@@ -114,11 +114,11 @@ const Navbar = () => {
     <AppBar
       position='fixed'
       sx={{
-        bgcolor: 'background.paper',
-        color: 'text.primary',
-        boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        borderBottom: 1,
-        borderColor: 'divider',
+        bgcolor: '#0A1929',
+        color: '#F8FAFC',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.4)',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.05)',
+        backdropFilter: 'blur(20px)',
       }}>
       <Container maxWidth='xl'>
         <Toolbar disableGutters>
@@ -128,13 +128,16 @@ const Navbar = () => {
             to='/homepage'
             sx={{
               mr: 2,
-              fontWeight: 700,
+              fontWeight: 800,
               fontSize: { xs: '1.5rem', md: '1.75rem' },
               textDecoration: 'none',
-              color: '#1976d2',
+              background: 'linear-gradient(135deg, #FFC107 0%, #FFF59D 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
               flexGrow: { xs: 1, md: 0 },
+              letterSpacing: '1px',
             }}>
-            FilmSathi 
+            FilmSathi
           </Typography>
 
           {isMobile ? (
@@ -157,14 +160,15 @@ const Navbar = () => {
                     sx={{
                       mx: 1,
                       color: isActive(item.path)
-                        ? '#1976d2'
-                        : '#333333',
-                      fontSize: '1rem',
+                        ? '#FFC107'
+                        : '#94A3B8',
+                      fontSize: '0.95rem',
                       fontWeight: isActive(item.path) ? 700 : 500,
                       '&:hover': {
-                        color: '#1976d2',
-                        backgroundColor: 'transparent',
+                        color: '#FFC107',
+                        backgroundColor: 'rgba(255, 193, 7, 0.05)',
                       },
+                      transition: 'all 0.3s ease',
                     }}>
                     {item.label}
                   </Button>
@@ -179,12 +183,13 @@ const Navbar = () => {
                       sx={{
                         textTransform: 'none',
                         minWidth: 150,
-                        borderRadius: '20px',
-                        color: '#333333',
-                        borderColor: '#333333',
+                        borderRadius: '12px',
+                        color: '#F8FAFC',
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
                         '&:hover': {
-                          borderColor: '#1976d2',
-                          color: '#1976d2',
+                          borderColor: '#FFC107',
+                          color: '#FFC107',
+                          bgcolor: 'rgba(255, 193, 7, 0.05)',
                         }
                       }}
                       variant='outlined'>
