@@ -323,7 +323,7 @@ const AboutUs = () => {
                 textShadow: '0 2px 4px rgba(0,0,0,0.3)',
               }}
             >
-              Ready to Experience FilmSathi?
+              Ready to Experience Movie-Mitra?
             </Typography>
             <Typography
               variant="h6"
