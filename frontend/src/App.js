@@ -35,33 +35,35 @@ import AdminLayout from './pages/admin/AdminLayout.jsx';
 
 const theme = createTheme({
   palette: {
-    mode: 'dark',
+    mode: 'light',
     primary: {
-      main: '#FFC107', // Amber/Gold
-      light: '#FFD54F',
-      dark: '#FFA000',
+      main: '#1976D2', // Vibrant Blue
+      light: '#42A5F5',
+      dark: '#1565C0',
     },
     secondary: {
-      main: '#0A1929', // Deep Midnight Blue
-      light: '#132F4C',
-      dark: '#000814',
+      main: '#E3F2FD', // Light Blue
+      light: '#F5FBFF',
+      dark: '#BBDEFB',
     },
     background: {
-      default: '#020817', // Very Dark Blue
-      paper: '#0F172A', // Slate Blue
+      default: '#F8FAFC', // Cool White
+      paper: '#FFFFFF', // Pure White
     },
     text: {
-      primary: '#F8FAFC',
-      secondary: '#94A3B8',
+      primary: '#0F172A', // Dark Slate
+      secondary: '#475569', // Slate Gray
     },
   },
   typography: {
-    fontFamily: '"Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
+    fontFamily: '"Inter", "Outfit", "Roboto", "Helvetica", "Arial", sans-serif',
     h2: {
-      fontWeight: 700,
+      fontWeight: 800,
+      letterSpacing: '-0.02em',
     },
     h4: {
-      fontWeight: 600,
+      fontWeight: 700,
+      letterSpacing: '-0.01em',
     },
   },
   components: {
@@ -71,6 +73,10 @@ const theme = createTheme({
           borderRadius: 8,
           textTransform: 'none',
           fontWeight: 600,
+          boxShadow: 'none',
+          '&:hover': {
+            boxShadow: '0 4px 12px rgba(25, 118, 210, 0.15)',
+          },
         },
       },
     },
@@ -78,9 +84,8 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           borderRadius: 16,
-          backgroundColor: '#0F172A',
-          border: '1px solid rgba(255, 255, 255, 0.1)',
-          backdropFilter: 'blur(10px)',
+          boxShadow: '0 4px 20px rgba(0, 0, 0, 0.05)',
+          border: '1px solid rgba(0, 0, 0, 0.04)',
         },
       },
     },
@@ -104,7 +109,7 @@ function App() {
           <Route path='/contactUs' element={<ContactUs />} />
           <Route path='/contact' element={<ContactUs />} />
           <Route path='/coming-soon' element={<ComingSoon />} />
-          
+
           {/* Payment Success Routes - Must be accessible without /user prefix for Khalti redirects */}
           <Route path='/payment/success' element={<ProtectedRoute allowedRoles={['user', 'admin']}><PaymentSuccess /></ProtectedRoute>} />
           <Route path='/payment-success' element={<ProtectedRoute allowedRoles={['user', 'admin']}><PaymentSuccess /></ProtectedRoute>} />

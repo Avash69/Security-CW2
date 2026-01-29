@@ -229,218 +229,226 @@ const Register = () => {
   };
 
   return (
-    <Container
-      maxWidth='sm'
-      sx={{ mt: 10, mb: 8 }}>
-      <Grow
-        in
-        timeout={800}>
-        <Paper
-          elevation={6}
-          sx={{
-            p: { xs: 2, sm: 4 },
-            borderRadius: 3,
-            background: `linear-gradient(145deg, ${theme.palette.background.paper} 0%, ${theme.palette.background.default} 100%)`,
-            backdropFilter: 'blur(10px)',
-            border: `1px solid ${theme.palette.divider}`,
-          }}>
-          <Fade
-            in
-            timeout={1200}>
-            <Box>
-              <Typography
-                variant='h4'
-                align='center'
-                sx={{
-                  mb: 3,
-                  fontWeight: 'bold',
-                }}>
-                Create an Account
-              </Typography>
-
-              <form onSubmit={handleSubmit}>
-                <Stack spacing={2}>
-                  <TextField
-                    {...textFieldProps}
-                    label='Full Name'
-                    error={!!errors.username}
-                    helperText={errors.username}
-                    value={formData.username}
-                    onChange={handleChange('username')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <Person
-                            color={errors.username ? 'error' : 'primary'}
-                          />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <TextField
-                    {...textFieldProps}
-                    label='Phone Number'
-                    error={!!errors.phoneNumber}
-                    helperText={errors.phoneNumber}
-                    value={formData.phoneNumber}
-                    onChange={handleChange('phoneNumber')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <Phone
-                            color={errors.phoneNumber ? 'error' : 'primary'}
-                          />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <TextField
-                    {...textFieldProps}
-                    label='Email'
-                    type='email'
-                    error={!!errors.email}
-                    helperText={errors.email}
-                    value={formData.email}
-                    onChange={handleChange('email')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <Email color={errors.email ? 'error' : 'primary'} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  <TextField
-                    {...textFieldProps}
-                    label='Password'
-                    type={showPassword.password ? 'text' : 'password'}
-                    error={!!errors.password}
-                    helperText={errors.password}
-                    value={formData.password}
-                    onChange={handleChange('password')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <Lock color={errors.password ? 'error' : 'primary'} />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position='end'>
-                          <IconButton
-                            onClick={togglePasswordVisibility('password')}
-                            edge='end'>
-                            {showPassword.password ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-
-                  {/* Password Strength Bar */}
-                  {formData.password && (
-                    <Box>
-                      <LinearProgress
-                        variant='determinate'
-                        value={(passwordStrength.score + 1) * 20}
-                        sx={{
-                          height: 8,
-                          borderRadius: 5,
-                          backgroundColor: theme.palette.grey[300],
-                          '& .MuiLinearProgress-bar': {
-                            backgroundColor: getStrengthColor(
-                              passwordStrength.score
-                            ),
-                          },
-                        }}
-                      />
-                      <Typography
-                        variant='body2'
-                        sx={{
-                          mt: 1,
-                          color: getStrengthColor(passwordStrength.score),
-                        }}>
-                        {passwordStrength.feedback}
-                      </Typography>
-                    </Box>
-                  )}
-
-                  <TextField
-                    {...textFieldProps}
-                    label='Confirm Password'
-                    type={showPassword.confirmPassword ? 'text' : 'password'}
-                    error={!!errors.confirmPassword}
-                    helperText={errors.confirmPassword}
-                    value={formData.confirmPassword}
-                    onChange={handleChange('confirmPassword')}
-                    InputProps={{
-                      startAdornment: (
-                        <InputAdornment position='start'>
-                          <Lock
-                            color={errors.confirmPassword ? 'error' : 'primary'}
-                          />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position='end'>
-                          <IconButton
-                            onClick={togglePasswordVisibility(
-                              'confirmPassword'
-                            )}
-                            edge='end'>
-                            {showPassword.confirmPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Stack>
-
-                <Button
-                  type='submit'
-                  variant='contained'
-                  sx={{ mt: 3 }}
-                  disabled={isLoading}>
-                  {isLoading ? 'Creating Account...' : 'Register'}
-                </Button>
-
-                <Box
+    <Box sx={{
+      minHeight: '100vh',
+      bgcolor: '#F0F4F8',
+      display: 'flex',
+      alignItems: 'center',
+      pt: 8
+    }}>
+      <Container
+        maxWidth='sm'
+        sx={{ mt: 4, mb: 8 }}>
+        <Grow
+          in
+          timeout={800}>
+          <Paper
+            elevation={0}
+            sx={{
+              p: { xs: 2, sm: 4 },
+              borderRadius: 4,
+              bgcolor: '#FFFFFF',
+              boxShadow: '0 10px 40px rgba(0,0,0,0.04)',
+              border: '1px solid #E2E8F0',
+            }}>
+            <Fade
+              in
+              timeout={1200}>
+              <Box>
+                <Typography
+                  variant='h4'
+                  align='center'
                   sx={{
-                    textAlign: 'center',
-                    mt: 2,
+                    mb: 3,
+                    fontWeight: 'bold',
                   }}>
-                  <Typography variant='body2'>
-                    Already have an account?{' '}
-                    <Link
-                      to='/login'
-                      style={{ color: theme.palette.primary.main }}>
-                      Login here
-                    </Link>
-                  </Typography>
-                </Box>
-              </form>
-            </Box>
-          </Fade>
-          <VerificationModal
-            open={openRegisterVerificationModal}
-            onClose={() => setOpenRegisterVerificationModal(false)}
-            isRegistration={true}
-            onVerify={handleRegisterVerification}
-            email={email}
-          />
-        </Paper>
-      </Grow>
-    </Container>
+                  Create an Account
+                </Typography>
+
+                <form onSubmit={handleSubmit}>
+                  <Stack spacing={2}>
+                    <TextField
+                      {...textFieldProps}
+                      label='Full Name'
+                      error={!!errors.username}
+                      helperText={errors.username}
+                      value={formData.username}
+                      onChange={handleChange('username')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <Person
+                              color={errors.username ? 'error' : 'primary'}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <TextField
+                      {...textFieldProps}
+                      label='Phone Number'
+                      error={!!errors.phoneNumber}
+                      helperText={errors.phoneNumber}
+                      value={formData.phoneNumber}
+                      onChange={handleChange('phoneNumber')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <Phone
+                              color={errors.phoneNumber ? 'error' : 'primary'}
+                            />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <TextField
+                      {...textFieldProps}
+                      label='Email'
+                      type='email'
+                      error={!!errors.email}
+                      helperText={errors.email}
+                      value={formData.email}
+                      onChange={handleChange('email')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <Email color={errors.email ? 'error' : 'primary'} />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    <TextField
+                      {...textFieldProps}
+                      label='Password'
+                      type={showPassword.password ? 'text' : 'password'}
+                      error={!!errors.password}
+                      helperText={errors.password}
+                      value={formData.password}
+                      onChange={handleChange('password')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <Lock color={errors.password ? 'error' : 'primary'} />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              onClick={togglePasswordVisibility('password')}
+                              edge='end'>
+                              {showPassword.password ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+
+                    {/* Password Strength Bar */}
+                    {formData.password && (
+                      <Box>
+                        <LinearProgress
+                          variant='determinate'
+                          value={(passwordStrength.score + 1) * 20}
+                          sx={{
+                            height: 8,
+                            borderRadius: 5,
+                            backgroundColor: theme.palette.grey[300],
+                            '& .MuiLinearProgress-bar': {
+                              backgroundColor: getStrengthColor(
+                                passwordStrength.score
+                              ),
+                            },
+                          }}
+                        />
+                        <Typography
+                          variant='body2'
+                          sx={{
+                            mt: 1,
+                            color: getStrengthColor(passwordStrength.score),
+                          }}>
+                          {passwordStrength.feedback}
+                        </Typography>
+                      </Box>
+                    )}
+
+                    <TextField
+                      {...textFieldProps}
+                      label='Confirm Password'
+                      type={showPassword.confirmPassword ? 'text' : 'password'}
+                      error={!!errors.confirmPassword}
+                      helperText={errors.confirmPassword}
+                      value={formData.confirmPassword}
+                      onChange={handleChange('confirmPassword')}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position='start'>
+                            <Lock
+                              color={errors.confirmPassword ? 'error' : 'primary'}
+                            />
+                          </InputAdornment>
+                        ),
+                        endAdornment: (
+                          <InputAdornment position='end'>
+                            <IconButton
+                              onClick={togglePasswordVisibility(
+                                'confirmPassword'
+                              )}
+                              edge='end'>
+                              {showPassword.confirmPassword ? (
+                                <VisibilityOff />
+                              ) : (
+                                <Visibility />
+                              )}
+                            </IconButton>
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Stack>
+
+                  <Button
+                    type='submit'
+                    variant='contained'
+                    sx={{ mt: 3 }}
+                    disabled={isLoading}>
+                    {isLoading ? 'Creating Account...' : 'Register'}
+                  </Button>
+
+                  <Box
+                    sx={{
+                      textAlign: 'center',
+                      mt: 2,
+                    }}>
+                    <Typography variant='body2'>
+                      Already have an account?{' '}
+                      <Link
+                        to='/login'
+                        style={{ color: theme.palette.primary.main }}>
+                        Login here
+                      </Link>
+                    </Typography>
+                  </Box>
+                </form>
+              </Box>
+            </Fade>
+            <VerificationModal
+              open={openRegisterVerificationModal}
+              onClose={() => setOpenRegisterVerificationModal(false)}
+              isRegistration={true}
+              onVerify={handleRegisterVerification}
+              email={email}
+            />
+          </Paper>
+        </Grow>
+      </Container>
+    </Box>
   );
 };
 

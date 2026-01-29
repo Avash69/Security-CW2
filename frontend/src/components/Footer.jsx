@@ -32,10 +32,10 @@ const Footer = () => {
     <Box
       component='footer'
       sx={{
-        bgcolor: '#050B18',
+        bgcolor: '#F1F5F9',
         py: 8,
         mt: 'auto',
-        borderTop: '1px solid rgba(255, 255, 255, 0.05)',
+        borderTop: '1px solid #E2E8F0',
       }}>
       <Container maxWidth='lg'>
         <Stack
@@ -50,21 +50,21 @@ const Footer = () => {
               <Divider
                 orientation='vertical'
                 flexItem
-                sx={{ bgcolor: 'rgba(255, 255, 255, 0.1)' }}
+                sx={{ bgcolor: '#CBD5E1' }}
               />
             }>
             <Link
               component={StyledLink}
               to='/aboutUs'
               variant='subtitle1'
-              sx={{ color: '#94A3B8', '&:hover': { color: '#FFC107' } }}>
+              sx={{ color: '#475569', '&:hover': { color: '#1976D2' }, fontWeight: 500 }}>
               About Us
             </Link>
             <Link
               component={StyledLink}
               to='/contactUs'
               variant='subtitle1'
-              sx={{ color: '#94A3B8', '&:hover': { color: '#FFC107' } }}>
+              sx={{ color: '#475569', '&:hover': { color: '#1976D2' }, fontWeight: 500 }}>
               Contact Us
             </Link>
           </Stack>
@@ -75,23 +75,22 @@ const Footer = () => {
               variant='h4'
               component='h1'
               sx={{
-                background: 'linear-gradient(135deg, #FFC107 0%, #FFF59D 100%)',
-                WebkitBackgroundClip: 'text',
-                color: 'transparent',
-                fontWeight: 'bold',
-                mb: 2,
-                letterSpacing: '1px',
+                color: '#1976D2',
+                fontWeight: 800,
+                mb: 1,
+                letterSpacing: '-0.02em',
               }}>
               FilmSathi
             </Typography>
+            <Box sx={{ width: 40, h: 4, bgcolor: '#1976D2', mx: 'auto', borderRadius: 2 }} />
           </Box>
 
           {/* Tagline */}
           <Typography
             variant='subtitle1'
-            color='#94A3B8'
+            color='#64748B'
             align='center'
-            sx={{ maxWidth: 'sm', mx: 'auto', opacity: 0.8 }}>
+            sx={{ maxWidth: 'sm', mx: 'auto', fontWeight: 500 }}>
             Bringing the magic of movies to life.
             <br />
             Enjoy the ultimate cinematic experience with us.
@@ -100,10 +99,10 @@ const Footer = () => {
           {/* Copyright */}
           <Typography
             variant='body2'
-            color='#64748B'
+            color='#94A3B8'
             align='center'
             sx={{ mt: 2 }}>
-            © {new Date().getFullYear()} FilmSathi. Premium Cinema Experience.
+            © {new Date().getFullYear()} FilmSathi. Professional Cinema Booking.
           </Typography>
         </Stack>
       </Container>

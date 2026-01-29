@@ -196,9 +196,9 @@ const Homepage = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          background: `linear-gradient(135deg, ${theme.palette.secondary.main} 0%, ${theme.palette.secondary.dark} 100%)`,
+          background: `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.primary.light} 100%)`,
           color: 'white',
-          py: { xs: 8, md: 12 },
+          py: { xs: 10, md: 14 },
           mt: 8,
           position: 'relative',
           overflow: 'hidden',
@@ -221,12 +221,11 @@ const Homepage = () => {
               component="h1"
               gutterBottom
               sx={{
-                fontWeight: 'bold',
+                fontWeight: 800,
                 mb: 2,
-                background: 'linear-gradient(135deg, #FFC107 0%, #FFF59D 100%)',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                textShadow: '0 4px 12px rgba(255, 193, 7, 0.2)',
+                color: '#FFFFFF',
+                textShadow: '0 2px 10px rgba(0,0,0,0.1)',
+                letterSpacing: '-0.02em',
               }}
             >
               Welcome to FilmSathi
