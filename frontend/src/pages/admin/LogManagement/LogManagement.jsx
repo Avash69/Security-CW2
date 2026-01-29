@@ -52,7 +52,7 @@ const LogManagement = () => {
       {
         _id: '2',
         level: 'success',
-        message: 'Admin user Aayush logged in successfully',
+        message: 'Admin user Avash logged in successfully',
         method: 'POST',
         url: '/api/user/login',
         user: 'aayush_admin',
