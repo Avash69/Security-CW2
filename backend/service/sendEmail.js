@@ -11,23 +11,23 @@ const createEmailTemplate = async (email, otp, templateType = 'login') => {
 
   const templateConfig = {
     login: {
-      subject: 'FilmSathi - Verify Your Login',
+      subject: 'Movie-Mitra - Verify Your Login',
       heading: 'Verify Your Login',
-      welcomeMessage: 'Welcome back to FilmSathi!',
+      welcomeMessage: 'Welcome back to Movie-Mitra!',
       actionText:
         'Please verify your login by entering this verification code:',
       buttonText: 'Verify Login',
     },
     register: {
-      subject: 'Welcome to FilmSathi - Verify Your Email',
+      subject: 'Welcome to Movie-Mitra - Verify Your Email',
       heading: 'Verify Your Email Address',
-      welcomeMessage: "Welcome to FilmSathi! We're excited to have you join us.",
+      welcomeMessage: "Welcome to Movie-Mitra! We're excited to have you join us.",
       actionText:
         'Please verify your email address by entering this verification code:',
       buttonText: 'Verify Email',
     },
     reset: {
-      subject: 'FilmSathi - Reset Your Password',
+      subject: 'Movie-Mitra - Reset Your Password',
       heading: 'Reset Your Password',
       welcomeMessage: 'We received a request to reset your password.',
       actionText: 'Enter this code to reset your password:',
@@ -39,7 +39,7 @@ const createEmailTemplate = async (email, otp, templateType = 'login') => {
 
   const mailOptions = {
     from: {
-      name: 'FilmSathi',
+      name: 'Movie-Mitra',
       address: process.env.EMAIL_USER,
     },
     to: email,
@@ -98,7 +98,7 @@ const createEmailTemplate = async (email, otp, templateType = 'login') => {
               <div style="background-color: #f8fafc; border-radius: 12px; padding: 20px; margin: 32px 0 0 0; border: 1px solid #e2e8f0;">
                 <p style="margin: 0; font-size: 14px; color: #64748b; display: flex; align-items: center;">
                   <span style="margin-right: 8px;">🔒</span>
-                  For your security, never share this code with anyone, including FilmSathi staff.
+                  For your security, never share this code with anyone, including Movie-Mitra staff.
                 </p>
               </div>
             </div>
@@ -111,7 +111,7 @@ const createEmailTemplate = async (email, otp, templateType = 'login') => {
                 <a href="#" style="color: #2a7d73; text-decoration: none; margin: 0 12px; font-size: 14px; font-weight: 500;">Support</a>
               </div>
               <p style="margin: 0 0 8px; font-size: 14px; color: #64748b;">
-                © ${new Date().getFullYear()} FilmSathi. All rights reserved.
+                © ${new Date().getFullYear()} Movie-Mitra. All rights reserved.
               </p>
               <p style="margin: 0; font-size: 12px; color: #94a3b8;">
                 This is an automated message, please do not reply.
