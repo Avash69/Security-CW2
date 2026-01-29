@@ -103,10 +103,10 @@ const initializeKhaltiPayment = async (details) => {
     website_url: details.website_url,
     amount: parseInt(details.amount), // Ensure amount is integer (paisa)
     purchase_order_id: details.itemId.toString(),
-    purchase_order_name: 'Movie Ticket Purchase - FilmSathi',
+    purchase_order_name: 'Movie Ticket Purchase - Movie-Mitra',
     customer_info: {
-      name: 'FilmSathi Customer',
-      email: 'customer@filmsathi.com',
+      name: 'Movie-Mitra Customer',
+      email: 'customer@Movie-Mitra.com',
       phone: '9800000000'
     },
     product_details: [
