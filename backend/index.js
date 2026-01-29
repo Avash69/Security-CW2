@@ -204,21 +204,7 @@ try {
 console.log('🔧 QUICK FIX: Starting in HTTP mode for immediate testing...');
 startHTTPServer();
 
-// Comment out HTTPS section for now
-/*
-if (useHTTPS && options) {
-  https.createServer(options, app).listen(PORT, () => {
-    console.log(`✅ Secure HTTPS server is running on https://localhost:${PORT}`);
-    console.log(`🔒 SSL/TLS encryption enabled`);
-  }).on('error', (err) => {
-    console.error('HTTPS Server error:', err);
-    console.log('Falling back to HTTP server...');
-    startHTTPServer();
-  });
-} else {
-  startHTTPServer();
-}
-*/
+
 
 // Fallback HTTP server function
 function startHTTPServer() {

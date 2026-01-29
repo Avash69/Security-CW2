@@ -1,5 +1,5 @@
 @echo off
-echo Starting FilmSathi Backend Server...
+echo Starting Movie-Mitra Backend Server...
 cd /d "%~dp0"
 node index.js
 pause
