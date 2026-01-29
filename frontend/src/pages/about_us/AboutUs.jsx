@@ -175,7 +175,7 @@ const AboutUs = () => {
                     flexGrow: 1,
                   }}
                 >
-                  Founded in 2020, FilmSathi has quickly become the go-to platform for movie enthusiasts across Nepal. 
+                  Founded in 2021, Movie-Mitra has quickly become the go-to platform for movie enthusiasts across Nepal. 
                   We're passionate about bringing the magic of cinema right to your fingertips, making the process of 
                   booking movie tickets as enjoyable as watching the films themselves. Our journey began with a simple 
                   vision: to make movie booking accessible, convenient, and delightful for everyone.
