@@ -1,206 +1,181 @@
+/* Premium Cinematic Booking Styles for Movie-Mitra */
 
-.movie-card {
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&display=swap');
 
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-
-  transition: 0.3s;
-
+:root {
+  --primary-glow: #1976d2;
+  --secondary-glow: #0d47a1;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --seat-available: #1e293b;
+  --seat-selected: #1976d2;
+  --seat-occupied: #334155;
 }
- 
-.movie-card:hover {
 
-  box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-
+.booking-root {
+  min-height: 100vh;
+  background: #020617;
+  /* Deep midnight blue */
+  font-family: 'Outfit', sans-serif;
+  color: #f8fafc;
+  position: relative;
+  overflow-x: hidden;
 }
- 
-.show-card {
 
-  cursor: pointer;
-
-  transition: 0.3s;
-
-}
- 
-.show-card:hover, .show-card.selected {
-
-  background-color: #e9ecef;
-
-}
- 
-.seat-grid {
-
-  display: grid;
-
-  grid-template-columns: repeat(10, 1fr);
-
-  gap: 10px;
-
-}
- 
-.seat-button {
-
-  background-color: #28a745;
-
-  border: none;
-
-  color: white;
-
-  padding: 10px;
-
-  text-align: center;
-
-  text-decoration: none;
-
-  display: inline-block;
-
-  font-size: 16px;
-
-  margin: 4px 2px;
-
-  cursor: pointer;
-
-  border-radius: 5px;
-
-}
- 
-.seat-button.selected {
-
-  background-color: #ffc107;
-
-}
- 
-.seat-button.unavailable {
-
-  background-color: #dc3545;
-
-  cursor: not-allowed;
-
-}
- 
-.screen {
-
-  background-color: #f8f9fa;
-
-  text-align: center;
-
-  padding: 20px;
-
-  border-radius: 5px;
-
-}
- 
-.seat-legend {
-
+/* Cinematic Header Backdrop */
+.booking-hero {
+  position: relative;
+  height: 400px;
+  overflow: hidden;
   display: flex;
-
-  justify-content: space-around;
-
-}
- 
-.seat-type {
-
-  display: flex;
-
-  align-items: center;
-
-}
- 
-.seat-type::before {
-
-  content: '';
-
-  display: inline-block;
-
-  width: 20px;
-
-  height: 20px;
-
-  margin-right: 5px;
-
-  border-radius: 5px;
-
-}
- 
-.seat-type.available::before {
-
-  background-color: #28a745;
-
-}
- 
-.seat-type.selected::before {
-
-  background-color: #ffc107;
-
-}
- 
-.seat-type.unavailable::before {
-
-  background-color: #dc3545;
-
-}
-
-.ticket {
-  border: 2px solid #000;
-  border-radius: 10px;
-  padding: 20px;
-  max-width: 400px;
-  margin: 0 auto;
-  background-color: #fff;
-}
-
-.ticket-header {
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.ticket-body {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
 }
 
-.ticket-info {
-  flex: 1;
-}
-
-.ticket-logo {
-  flex: 1;
-  text-align: center;
-}
-
-.ticket-logo img {
-  max-width: 100px;
-  height: auto;
-}
-
-.screen {
-  background-color: #fff;
-  height: 70px;
-  width: 100%;
-  margin: 15px 0;
-  transform: rotateX(-45deg);
-  box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
-  font-weight: bold;
-  color: #555;
-}
-
-.screen::before {
-  content: '';
+.hero-backdrop {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
-  height: 100%;
-  background: linear-gradient(to bottom, #fff, #ccc);
-  border-radius: 50%/100% 100% 0 0;
-  transform: scaleY(0.3);
-  z-index: -1;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(40px) brightness(0.4);
+  transform: scale(1.1);
+  z-index: 0;
 }
 
+.hero-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, transparent 0%, #020617 100%);
+  z-index: 1;
+}
 
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding: 0 20px;
+}
 
- 
+/* Glassmorphic Container */
+.booking-container {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 32px;
+  padding: 40px;
+  margin-top: -100px;
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.5);
+}
+
+/* Seat Selector Styles */
+.screen-container {
+  perspective: 600px;
+  margin-bottom: 60px;
+  text-align: center;
+}
+
+.screen-visual {
+  height: 80px;
+  width: 100%;
+  background: linear-gradient(to bottom, rgba(25, 118, 210, 0.3), transparent);
+  transform: rotateX(-45deg);
+  box-shadow: 0 15px 30px rgba(25, 118, 210, 0.1);
+  border-radius: 50% / 100% 100% 0 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.screen-text {
+  text-transform: uppercase;
+  letter-spacing: 0.5em;
+  color: #64748B;
+  font-weight: 800;
+  font-size: 0.875rem;
+}
+
+.seat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 12px;
+  justify-content: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.seat-box {
+  aspect-ratio: 1;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 0.75rem;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: var(--seat-available);
+  color: #64748B;
+}
+
+.seat-box:hover:not(.occupied) {
+  background: rgba(25, 118, 210, 0.2);
+  color: #f8fafc;
+  transform: scale(1.1);
+  border-color: var(--primary-glow);
+}
+
+.seat-box.selected {
+  background: var(--primary-glow);
+  color: white;
+  box-shadow: 0 0 20px rgba(25, 118, 210, 0.4);
+  border-color: #42A5F5;
+}
+
+.seat-box.occupied {
+  background: var(--seat-occupied);
+  cursor: not-allowed;
+  opacity: 0.4;
+  color: transparent;
+}
+
+/* Legend */
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #94A3B8;
+}
+
+.legend-color {
+  width: 16px;
+  height: 16px;
+  border-radius: 4px;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-up {
+  animation: fadeInUp 0.8s ease-out both;
+}
