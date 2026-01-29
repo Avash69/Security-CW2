@@ -23,17 +23,17 @@ async function testKhaltiConfig() {
     return_url: 'https://localhost:3000/payment/success',
     website_url: 'https://localhost:3000',
     amount: 50000, // Rs. 500 in paisa (typical movie ticket price)
-    purchase_order_id: 'FILMSATHI_TEST_' + Date.now(),
-    purchase_order_name: 'Movie Ticket Purchase - FilmSathi',
+    purchase_order_id: 'Movie-Mitra_TEST_' + Date.now(),
+    purchase_order_name: 'Movie Ticket Purchase - Movie-Mitra',
     customer_info: {
       name: 'Test Customer',
-      email: 'customer@filmsathi.com',
+      email: 'customer@Movie-Mitra.com',
       phone: '9800000000'
     },
     product_details: [
       {
         identity: 'movie_ticket_001',
-        name: 'FilmSathi Movie Ticket',
+        name: 'Movie-Mitra Movie Ticket',
         total_price: 50000,
         quantity: 1,
         unit_price: 50000
